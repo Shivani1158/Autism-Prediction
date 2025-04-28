@@ -1,5 +1,3 @@
-Python 3.13.1 (tags/v3.13.1:0671451, Dec  3 2024, 19:06:28) [MSC v.1942 64 bit (AMD64)] on win32
-Type "help", "copyright", "credits" or "license()" for more information.
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -57,33 +55,33 @@ if st.button('Predict Autism Risk'):
 
     confidence = np.max(prediction_proba) * 100
 
-...     if prediction[0] == 1:
-...         if confidence >= 85:
-...             st.error(f'**High Risk of Autism** 🚨 (Confidence: {confidence:.2f}%)')
-...         else:
-...             st.warning(f'**Moderate Risk of Autism** ⚠️ (Confidence: {confidence:.2f}%)')
-...     else:
-...         if confidence >= 85:
-...             st.success(f'**Low Risk of Autism** ✅ (Confidence: {confidence:.2f}%)')
-...         else:
-...             st.info(f'**Very Low Risk of Autism** 🛡️ (Confidence: {confidence:.2f}%)')
-... 
-... st.markdown("---")
-... st.subheader("Feature Importance Analysis")
-... 
-... if st.button('Show Feature Importances'):
-...     feature_importances = np.abs(model.coef_[0])
-...     feature_names = input_df.columns
-... 
-...     importance_df = pd.DataFrame({
-...         'Feature': feature_names,
-...         'Importance': feature_importances
-...     }).sort_values(by='Importance', ascending=False)
-... 
-...     st.bar_chart(importance_df.set_index('Feature'))
-... 
-... st.markdown("""
-... ---
-... 📝 **Disclaimer:** This is a preliminary screening tool based on questionnaire responses and should not be considered a final diagnosis.  
-... For professional evaluation, consult a healthcare provider.
-... """)
+    if prediction[0] == 1:
+        if confidence >= 85:
+            st.error(f'**High Risk of Autism** 🚨 (Confidence: {confidence:.2f}%)')
+        else:
+            st.warning(f'**Moderate Risk of Autism** ⚠️ (Confidence: {confidence:.2f}%)')
+    else:
+        if confidence >= 85:
+            st.success(f'**Low Risk of Autism** ✅ (Confidence: {confidence:.2f}%)')
+        else:
+            st.info(f'**Very Low Risk of Autism** 🛡️ (Confidence: {confidence:.2f}%)')
+
+st.markdown("---")
+st.subheader("Feature Importance Analysis")
+
+if st.button('Show Feature Importances'):
+    feature_importances = np.abs(model.coef_[0])
+    feature_names = input_df.columns
+
+    importance_df = pd.DataFrame({
+        'Feature': feature_names,
+        'Importance': feature_importances
+    }).sort_values(by='Importance', ascending=False)
+
+    st.bar_chart(importance_df.set_index('Feature'))
+
+st.markdown("""
+---
+📝 **Disclaimer:** This is a preliminary screening tool based on questionnaire responses and should not be considered a final diagnosis.  
+For professional evaluation, consult a healthcare provider.
+""")
