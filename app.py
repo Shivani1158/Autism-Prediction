@@ -1,162 +1,89 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 1,
-   "id": "8863caae-44d7-4c09-85bd-841c5ba4f3d7",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2025-04-28 20:59:49.969 \n",
-      "  \u001b[33m\u001b[1mWarning:\u001b[0m to view this Streamlit app on a browser, run it with the following\n",
-      "  command:\n",
-      "\n",
-      "    streamlit run C:\\ProgramData\\anaconda3\\Lib\\site-packages\\ipykernel_launcher.py [ARGUMENTS]\n",
-      "2025-04-28 20:59:49.973 Session state does not function when running a script without `streamlit run`\n"
-     ]
-    },
-    {
-     "data": {
-      "text/plain": [
-       "DeltaGenerator()"
-      ]
-     },
-     "execution_count": 1,
-     "metadata": {},
-     "output_type": "execute_result"
+Python 3.13.1 (tags/v3.13.1:0671451, Dec  3 2024, 19:06:28) [MSC v.1942 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+import streamlit as st
+import pandas as pd
+import numpy as np
+import joblib
+
+# Load the saved model and scaler
+model = joblib.load('autism_best_model.pkl')
+scaler = joblib.load('scaler.pkl')
+
+# App Title
+st.title("Early Prediction of Autism Using ML Models 🚀")
+st.markdown("Please fill the following information:")
+
+def user_input_features():
+    A1_Score = st.selectbox('A1 Score (0 = No, 1 = Yes)', (0, 1))
+    A2_Score = st.selectbox('A2 Score (0 = No, 1 = Yes)', (0, 1))
+    A3_Score = st.selectbox('A3 Score (0 = No, 1 = Yes)', (0, 1))
+    A4_Score = st.selectbox('A4 Score (0 = No, 1 = Yes)', (0, 1))
+    A5_Score = st.selectbox('A5 Score (0 = No, 1 = Yes)', (0, 1))
+    A6_Score = st.selectbox('A6 Score (0 = No, 1 = Yes)', (0, 1))
+    A7_Score = st.selectbox('A7 Score (0 = No, 1 = Yes)', (0, 1))
+    A8_Score = st.selectbox('A8 Score (0 = No, 1 = Yes)', (0, 1))
+    A9_Score = st.selectbox('A9 Score (0 = No, 1 = Yes)', (0, 1))
+    A10_Score = st.selectbox('A10 Score (0 = No, 1 = Yes)', (0, 1))
+    age = st.slider('Age', 2, 60, 25)
+    gender = st.selectbox('Gender (0 = Female, 1 = Male)', (0, 1))
+    jaundice = st.selectbox('History of Jaundice (0 = No, 1 = Yes)', (0, 1))
+    family_mem_with_ASD = st.selectbox('Family Member with ASD? (0 = No, 1 = Yes)', (0, 1))
+
+    data = {
+        'A1_Score': A1_Score,
+        'A2_Score': A2_Score,
+        'A3_Score': A3_Score,
+        'A4_Score': A4_Score,
+        'A5_Score': A5_Score,
+        'A6_Score': A6_Score,
+        'A7_Score': A7_Score,
+        'A8_Score': A8_Score,
+        'A9_Score': A9_Score,
+        'A10_Score': A10_Score,
+        'age': age,
+        'gender': gender,
+        'jaundice': jaundice,
+        'family_mem_with_ASD': family_mem_with_ASD
     }
-   ],
-   "source": [
-    "import streamlit as st\n",
-    "import pandas as pd\n",
-    "import numpy as np\n",
-    "import joblib\n",
-    "\n",
-    "# Load the saved model and scaler\n",
-    "model = joblib.load('autism_best_model.pkl')\n",
-    "scaler = joblib.load('scaler.pkl')\n",
-    "\n",
-    "# App Title\n",
-    "st.title(\"Early Prediction of Autism Using ML Models 🚀\")\n",
-    "st.markdown(\"Please fill the following information:\")\n",
-    "\n",
-    "# Input form for user\n",
-    "def user_input_features():\n",
-    "    A1_Score = st.selectbox('A1 Score (0 = No, 1 = Yes)', (0, 1))\n",
-    "    A2_Score = st.selectbox('A2 Score (0 = No, 1 = Yes)', (0, 1))\n",
-    "    A3_Score = st.selectbox('A3 Score (0 = No, 1 = Yes)', (0, 1))\n",
-    "    A4_Score = st.selectbox('A4 Score (0 = No, 1 = Yes)', (0, 1))\n",
-    "    A5_Score = st.selectbox('A5 Score (0 = No, 1 = Yes)', (0, 1))\n",
-    "    A6_Score = st.selectbox('A6 Score (0 = No, 1 = Yes)', (0, 1))\n",
-    "    A7_Score = st.selectbox('A7 Score (0 = No, 1 = Yes)', (0, 1))\n",
-    "    A8_Score = st.selectbox('A8 Score (0 = No, 1 = Yes)', (0, 1))\n",
-    "    A9_Score = st.selectbox('A9 Score (0 = No, 1 = Yes)', (0, 1))\n",
-    "    A10_Score = st.selectbox('A10 Score (0 = No, 1 = Yes)', (0, 1))\n",
-    "    age = st.slider('Age', 2, 60, 25)\n",
-    "    gender = st.selectbox('Gender (0 = Female, 1 = Male)', (0, 1))\n",
-    "    jaundice = st.selectbox('History of Jaundice (0 = No, 1 = Yes)', (0, 1))\n",
-    "    family_mem_with_ASD = st.selectbox('Family Member with ASD? (0 = No, 1 = Yes)', (0, 1))\n",
-    "\n",
-    "    data = {\n",
-    "        'A1_Score': A1_Score,\n",
-    "        'A2_Score': A2_Score,\n",
-    "        'A3_Score': A3_Score,\n",
-    "        'A4_Score': A4_Score,\n",
-    "        'A5_Score': A5_Score,\n",
-    "        'A6_Score': A6_Score,\n",
-    "        'A7_Score': A7_Score,\n",
-    "        'A8_Score': A8_Score,\n",
-    "        'A9_Score': A9_Score,\n",
-    "        'A10_Score': A10_Score,\n",
-    "        'age': age,\n",
-    "        'gender': gender,\n",
-    "        'jaundice': jaundice,\n",
-    "        'family_mem_with_ASD': family_mem_with_ASD\n",
-    "    }\n",
-    "    features = pd.DataFrame(data, index=[0])\n",
-    "    return features\n",
-    "\n",
-    "input_df = user_input_features()\n",
-    "\n",
-    "# Main Prediction\n",
-    "if st.button('Predict Autism Risk'):\n",
-    "    scaled_input = scaler.transform(input_df)\n",
-    "    prediction = model.predict(scaled_input)\n",
-    "    prediction_proba = model.predict_proba(scaled_input)\n",
-    "\n",
-    "    confidence = np.max(prediction_proba) * 100\n",
-    "\n",
-    "    # Risk Levels\n",
-    "    if prediction[0] == 1:\n",
-    "        if confidence >= 85:\n",
-    "            st.error(f'**High Risk of Autism** 🚨 (Confidence: {confidence:.2f}%)')\n",
-    "        else:\n",
-    "            st.warning(f'**Moderate Risk of Autism** ⚠️ (Confidence: {confidence:.2f}%)')\n",
-    "    else:\n",
-    "        if confidence >= 85:\n",
-    "            st.success(f'**Low Risk of Autism** ✅ (Confidence: {confidence:.2f}%)')\n",
-    "        else:\n",
-    "            st.info(f'**Very Low Risk of Autism** 🛡️ (Confidence: {confidence:.2f}%)')\n",
-    "\n",
-    "# Feature Importance Section\n",
-    "st.markdown(\"---\")\n",
-    "st.subheader(\"Feature Importance Analysis\")\n",
-    "\n",
-    "if st.button('Show Feature Importances'):\n",
-    "    # For Logistic Regression: use absolute value of coefficients\n",
-    "    feature_importances = np.abs(model.coef_[0])\n",
-    "    feature_names = input_df.columns  # From the input form fields\n",
-    "\n",
-    "    importance_df = pd.DataFrame({\n",
-    "        'Feature': feature_names,\n",
-    "        'Importance': feature_importances\n",
-    "    }).sort_values(by='Importance', ascending=False)\n",
-    "\n",
-    "    st.bar_chart(importance_df.set_index('Feature'))\n",
-    "\n",
-    "    st.markdown(\"\"\"\n",
-    "    **Note:** Higher importance values indicate stronger influence of that feature on the model's prediction.\n",
-    "    \"\"\")\n",
-    "\n",
-    "# Footer Disclaimer\n",
-    "st.markdown(\"\"\"\n",
-    "---\n",
-    "📝 **Disclaimer:** This is a preliminary screening tool based on questionnaire responses and should not be considered a final diagnosis.  \n",
-    "For professional evaluation, consult a healthcare provider.\n",
-    "\"\"\")\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 'null',
-   "id": "c08244e5-bced-465a-87f6-570d6c84501d",
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python [conda env:base] *",
-   "language": "python",
-   "name": "conda-base-py"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.12.7"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+    features = pd.DataFrame(data, index=[0])
+    return features
+
+input_df = user_input_features()
+
+if st.button('Predict Autism Risk'):
+    scaled_input = scaler.transform(input_df)
+    prediction = model.predict(scaled_input)
+    prediction_proba = model.predict_proba(scaled_input)
+
+    confidence = np.max(prediction_proba) * 100
+
+...     if prediction[0] == 1:
+...         if confidence >= 85:
+...             st.error(f'**High Risk of Autism** 🚨 (Confidence: {confidence:.2f}%)')
+...         else:
+...             st.warning(f'**Moderate Risk of Autism** ⚠️ (Confidence: {confidence:.2f}%)')
+...     else:
+...         if confidence >= 85:
+...             st.success(f'**Low Risk of Autism** ✅ (Confidence: {confidence:.2f}%)')
+...         else:
+...             st.info(f'**Very Low Risk of Autism** 🛡️ (Confidence: {confidence:.2f}%)')
+... 
+... st.markdown("---")
+... st.subheader("Feature Importance Analysis")
+... 
+... if st.button('Show Feature Importances'):
+...     feature_importances = np.abs(model.coef_[0])
+...     feature_names = input_df.columns
+... 
+...     importance_df = pd.DataFrame({
+...         'Feature': feature_names,
+...         'Importance': feature_importances
+...     }).sort_values(by='Importance', ascending=False)
+... 
+...     st.bar_chart(importance_df.set_index('Feature'))
+... 
+... st.markdown("""
+... ---
+... 📝 **Disclaimer:** This is a preliminary screening tool based on questionnaire responses and should not be considered a final diagnosis.  
+... For professional evaluation, consult a healthcare provider.
+... """)
