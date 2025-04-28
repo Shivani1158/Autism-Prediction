@@ -62,7 +62,7 @@ if st.button('Predict Autism Risk'):
     expected_order = ['A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score',
                       'A6_Score', 'A7_Score', 'A8_Score', 'A9_Score', 'A10_Score',
                       'age', 'gender', 'ethnicity', 'jaundice', 'autism',
-                      'contry_of_res', 'relation', 'used_app_before']
+                      'country_of_res', 'relation', 'used_app_before']
     
     input_df = input_df[expected_order]
     
