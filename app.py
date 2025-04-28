@@ -27,8 +27,8 @@ def user_input_features():
     gender = st.selectbox('Gender', (0, 1))  # 0 = Female, 1 = Male
     ethnicity = st.selectbox('Ethnicity', ['White-European', 'Latino', 'Others', 'Black', 'Asian', 'Middle Eastern', 'South Asian'])
     jaundice = st.selectbox('Have you had jaundice?', (0, 1))  # 0 = No, 1 = Yes
-    family_mem_with_ASD = st.selectbox('Is there a family member with ASD?', (0, 1))
-    country_of_res = st.text_input('Country of Residence', 'United States')
+    autism = st.selectbox('Is there a family member with ASD?', (0, 1))
+    Country of Residence = st.text_input('Country of Residence', 'United States')
     relation = st.selectbox('Relation to the individual being tested', ['Self', 'Parent', 'Sibling', 'Relative', 'Others'])
     used_app_before = st.selectbox('Have you used this app before?', (0, 1))
 
@@ -47,8 +47,8 @@ def user_input_features():
         'gender': gender,
         'ethnicity': ethnicity,
         'jaundice': jaundice,
-        'family_mem_with_ASD': family_mem_with_ASD,
-        'country_of_res': country_of_res,
+        'autism': autism,
+        'Country of Residence': Country of Residence,
         'relation': relation,
         'used_app_before': used_app_before
     }
