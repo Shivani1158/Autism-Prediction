@@ -30,6 +30,7 @@ def user_input_features():
     family_mem_with_ASD = st.selectbox('Is there a family member with ASD?', (0, 1))
     country_of_res = st.text_input('Country of Residence', 'United States')
     relation = st.selectbox('Relation to the individual being tested', ['Self', 'Parent', 'Sibling', 'Relative', 'Others'])
+    used_app_before = st.selectbox('Have you used this app before?', (0, 1))
 
     data = {
         'A1_Score': A1_Score,
@@ -49,6 +50,7 @@ def user_input_features():
         'family_mem_with_ASD': family_mem_with_ASD,
         'country_of_res': country_of_res,
         'relation': relation
+        'used_app_before': used_app_before
     }
     features = pd.DataFrame(data, index=[0])
     return features
