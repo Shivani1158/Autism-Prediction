@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import streamlit as st
+import pandas as pd
 import numpy as np
 import joblib
 
@@ -7,25 +9,27 @@ import joblib
 model = joblib.load('autism_best_model.pkl')
 scaler = joblib.load('scaler.pkl')
 
-# App Title
 st.title("Early Prediction of Autism Using ML Models 🚀")
-st.markdown("Please fill the following information:")
+st.markdown("### Please fill the following questionnaire carefully:")
 
 def user_input_features():
-    A1_Score = st.selectbox('A1 Score (0 = No, 1 = Yes)', (0, 1))
-    A2_Score = st.selectbox('A2 Score (0 = No, 1 = Yes)', (0, 1))
-    A3_Score = st.selectbox('A3 Score (0 = No, 1 = Yes)', (0, 1))
-    A4_Score = st.selectbox('A4 Score (0 = No, 1 = Yes)', (0, 1))
-    A5_Score = st.selectbox('A5 Score (0 = No, 1 = Yes)', (0, 1))
-    A6_Score = st.selectbox('A6 Score (0 = No, 1 = Yes)', (0, 1))
-    A7_Score = st.selectbox('A7 Score (0 = No, 1 = Yes)', (0, 1))
-    A8_Score = st.selectbox('A8 Score (0 = No, 1 = Yes)', (0, 1))
-    A9_Score = st.selectbox('A9 Score (0 = No, 1 = Yes)', (0, 1))
-    A10_Score = st.selectbox('A10 Score (0 = No, 1 = Yes)', (0, 1))
+    A1_Score = st.selectbox('I often notice small sounds when others do not.', (0, 1))
+    A2_Score = st.selectbox('I usually concentrate more on the whole picture rather than details.', (0, 1))
+    A3_Score = st.selectbox('I find it easy to do more than one thing at once.', (0, 1))
+    A4_Score = st.selectbox('If there is an interruption, I can switch back very quickly.', (0, 1))
+    A5_Score = st.selectbox('I find it easy to "read between the lines" when someone is talking to me.', (0, 1))
+    A6_Score = st.selectbox('I know how to tell if someone listening to me is getting bored.', (0, 1))
+    A7_Score = st.selectbox('When I’m reading a story, I find it difficult to work out the characters\' intentions.', (0, 1))
+    A8_Score = st.selectbox('I like to collect information about categories of things (e.g., types of cars, birds, trains, plants).', (0, 1))
+    A9_Score = st.selectbox('I find it easy to work out what someone is thinking or feeling just by looking at their face.', (0, 1))
+    A10_Score = st.selectbox('I find it difficult to work out people\'s intentions.', (0, 1))
     age = st.slider('Age', 2, 60, 25)
-    gender = st.selectbox('Gender (0 = Female, 1 = Male)', (0, 1))
-    jaundice = st.selectbox('History of Jaundice (0 = No, 1 = Yes)', (0, 1))
-    family_mem_with_ASD = st.selectbox('Family Member with ASD? (0 = No, 1 = Yes)', (0, 1))
+    gender = st.selectbox('Gender', (0, 1))  # 0 = Female, 1 = Male
+    ethnicity = st.selectbox('Ethnicity', ['White-European', 'Latino', 'Others', 'Black', 'Asian', 'Middle Eastern', 'South Asian'])
+    jaundice = st.selectbox('Have you had jaundice?', (0, 1))  # 0 = No, 1 = Yes
+    family_mem_with_ASD = st.selectbox('Is there a family member with ASD?', (0, 1))
+    country_of_res = st.text_input('Country of Residence', 'United States')
+    relation = st.selectbox('Relation to the individual being tested', ['Self', 'Parent', 'Sibling', 'Relative', 'Others'])
 
     data = {
         'A1_Score': A1_Score,
@@ -40,8 +44,11 @@ def user_input_features():
         'A10_Score': A10_Score,
         'age': age,
         'gender': gender,
+        'ethnicity': ethnicity,
         'jaundice': jaundice,
-        'family_mem_with_ASD': family_mem_with_ASD
+        'family_mem_with_ASD': family_mem_with_ASD,
+        'country_of_res': country_of_res,
+        'relation': relation
     }
     features = pd.DataFrame(data, index=[0])
     return features
