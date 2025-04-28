@@ -9,15 +9,15 @@ import joblib
 model = joblib.load('autism_best_model.pkl')
 scaler = joblib.load('scaler.pkl')
 
-st.title("Early Prediction of Autism Using ML Models 🚀")
+st.title("Early Prediction of Autism Using ML Models")
 st.markdown("### Please fill the following questionnaire carefully:")
 
 def user_input_features():
-    A1_Score = st.selectbox('I often notice small sounds when others do not.', (0, 1))
-    A2_Score = st.selectbox('I usually concentrate more on the whole picture rather than details.', (0, 1))
-    A3_Score = st.selectbox('I find it easy to do more than one thing at once.', (0, 1))
+    A1_Score = st.selectbox("I often notice small sounds when others do not.", (0, 1))
+    A2_Score = st.selectbox("I usually concentrate more on the whole picture rather than details.", (0, 1))
+    A3_Score = st.selectbox("I find it easy to do more than one thing at once.", (0, 1))
     A4_Score = st.selectbox('If there is an interruption, I can switch back very quickly.', (0, 1))
-    A5_Score = st.selectbox('I find it easy to "read between the lines" when someone is talking to me.', (0, 1))
+    A5_Score = st.selectbox("I find it easy to "read between the lines" when someone is talking to me.", (0, 1))
     A6_Score = st.selectbox('I know how to tell if someone listening to me is getting bored.', (0, 1))
     A7_Score = st.selectbox('When I’m reading a story, I find it difficult to work out the characters\' intentions.', (0, 1))
     A8_Score = st.selectbox('I like to collect information about categories of things (e.g., types of cars, birds, trains, plants).', (0, 1))
