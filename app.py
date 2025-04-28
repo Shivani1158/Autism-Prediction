@@ -92,6 +92,8 @@ if st.button('Predict Autism Risk'):
     input_df['ethnicity'] = input_df['ethnicity'].map(encoding_maps['ethnicity'])
     input_df['country_of_res'] = input_df['country_of_res'].map(encoding_maps['country_of_res'])
     input_df['relation'] = input_df['relation'].map(encoding_maps['relation'])
+
+    input_df = input_df.fillna(1)
     
     scaled_input = scaler.transform(input_df)
     prediction = model.predict(scaled_input)
