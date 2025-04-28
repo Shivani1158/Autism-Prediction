@@ -77,7 +77,7 @@ if st.button('Predict Autism Risk'):
             'Middle Eastern': 5,
             'South Asian': 6
         },
-        'contry_of_res': {
+        'country_of_res': {
             'United States': 0,
             'Others': 1
         },
@@ -90,7 +90,7 @@ if st.button('Predict Autism Risk'):
         }
     }
     input_df['ethnicity'] = input_df['ethnicity'].map(encoding_maps['ethnicity'])
-    input_df['contry_of_res'] = input_df['contry_of_res'].map(encoding_maps['contry_of_res'])
+    input_df['country_of_res'] = input_df['country_of_res'].map(encoding_maps['country_of_res'])
     input_df['relation'] = input_df['relation'].map(encoding_maps['relation'])
     
     scaled_input = scaler.transform(input_df)
