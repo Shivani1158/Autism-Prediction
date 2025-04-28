@@ -59,7 +59,7 @@ input_df = user_input_features()
 
 if st.button('Predict Autism Risk'):
 
-    expected_order = ['A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score',
+    feature_order = ['A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score',
                       'A6_Score', 'A7_Score', 'A8_Score', 'A9_Score', 'A10_Score',
                       'age', 'gender', 'ethnicity', 'jaundice', 'autism',
                       'country_of_res', 'used_app_before', 'relation']
