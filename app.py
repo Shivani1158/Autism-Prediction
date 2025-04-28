@@ -49,7 +49,7 @@ def user_input_features():
         'jaundice': jaundice,
         'family_mem_with_ASD': family_mem_with_ASD,
         'country_of_res': country_of_res,
-        'relation': relation
+        'relation': relation,
         'used_app_before': used_app_before
     }
     features = pd.DataFrame(data, index=[0])
