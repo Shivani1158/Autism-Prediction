@@ -64,7 +64,34 @@ if st.button('Predict Autism Risk'):
                       'age', 'gender', 'ethnicity', 'jaundice', 'autism',
                       'country_of_res', 'used_app_before', 'relation']
     
-    input_df = input_df[expected_order]
+    input_df = input_df[feature_order]
+
+    # Manual Label Encoding for strings
+    encoding_maps = {
+        'ethnicity': {
+            'White-European': 0,
+            'Latino': 1,
+            'Others': 2,
+            'Black': 3,
+            'Asian': 4,
+            'Middle Eastern': 5,
+            'South Asian': 6
+        },
+        'contry_of_res': {
+            'United States': 0,
+            'Others': 1
+        },
+        'relation': {
+            'Self': 0,
+            'Parent': 1,
+            'Sibling': 2,
+            'Relative': 3,
+            'Others': 4
+        }
+    }
+    input_df['ethnicity'] = input_df['ethnicity'].map(encoding_maps['ethnicity'])
+    input_df['contry_of_res'] = input_df['contry_of_res'].map(encoding_maps['contry_of_res'])
+    input_df['relation'] = input_df['relation'].map(encoding_maps['relation'])
     
     scaled_input = scaler.transform(input_df)
     prediction = model.predict(scaled_input)
