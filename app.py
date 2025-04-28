@@ -10,7 +10,7 @@ model = joblib.load('autism_best_model.pkl')
 scaler = joblib.load('scaler.pkl')
 
 st.title("Early Prediction of Autism Using ML Models")
-st.markdown("### Please fill the following questionnaire carefully:")
+st.markdown("### Please fill the following questionnaire carefully: 0 = No, 1 = Yes")
 
 def user_input_features():
     A1_Score = st.selectbox('I often notice small sounds when others do not.', (0, 1))
