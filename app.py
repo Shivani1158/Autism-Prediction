@@ -121,7 +121,7 @@ if submit_button:
 
         st.markdown("---")
         if prediction[0] == 1:
-            if confidence >= 85:
+            if confidence <= 85:
                 st.error(f'🚨 **High Risk of Autism** (Confidence: {confidence:.2f}%)')
             else:
                 st.warning(f'⚠️ **Moderate Risk of Autism** (Confidence: {confidence:.2f}%)')
